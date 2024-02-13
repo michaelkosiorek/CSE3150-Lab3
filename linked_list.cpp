@@ -1,78 +1,93 @@
-#include <iostream>
 
 #include "linked_list.h"
 
 
-using namespace std;
+node * build_new_linked_list(int total_new_elements) {
 
-/*
-build_new_linked_list:
-	returns a pointer to the first node in the linked list
-    If 0 == total_new_elements, then return null
-*/
-struct node * build_new_linked_list(int total_new_elements) {
-    if (0 == total_new_elements) {
-        return NULL;
-    } else {
-        struct node * root = new node;
-        root->data = -1;
-        struct node * linked_list = root;
+    if (total_new_elements==0) return nullptr;
 
-        for (int i = 0 ; i < total_new_elements; i++) {
-            linked_list->next = new node;
-            linked_list->data = i+1;
-            linked_list = linked_list->next;
-        }
+    node *head_node = new node;
+    node *lag_node = head_node;
 
-        return root;
+    node *next_node;
+    for (int i=1; i < total_new_elements; i++) {
+        next_node = new node;
+        lag_node->next = next_node;
+        lag_node->dont_modify_next = next_node;
+        lag_node = next_node;
     }
+    
+    lag_node->next = lag_node;
+    lag_node->dont_modify_next = lag_node;
+
+    return head_node;
 }
 
-//get_linked_list_data_item_value: returns -1 if not enough nodes
 
-int get_linked_list_data_item_value(struct node * start, int node_number, int total_elements) {
-    if (node_number > total_elements) {
-        return -1;
-    } else {
-        struct node * linked_list = start;
+void print_linked_list_each_next_ptr(node * start) {
 
-        for (int i = 0; i < node_number -1; i++) {
-            linked_list = linked_list->next;
-        }
+    if (start==nullptr) return;
 
-        return linked_list->data;
+    node *current_node=start;
+    std::cout << current_node << " <-- Base node address"<< std::endl;
+    while (current_node->next != current_node) {
+        std::cout << current_node->next << std::endl;
+        current_node = current_node->next;
     }
-}
-
-void print_linked_list(struct node * start, int total_elements) {
-    struct node * linked_list =  start;
-
-    for (int i = 0; i < total_elements; i++) {
-        cout << linked_list->data << endl;
-        linked_list = linked_list->next;
-    }
-}
-
-void print_linked_list_by_jumpers(struct node * start, int total_elements) {
-
-    struct node *linked_list = start;
-
-    for (int i=0; i < number_of_nodes; i++) {
-        if (linked_list->jumper==linked_list) break; // pointing to self
-        cout << linked_list->data << endl;
-        linked_lits = linked_list->next;
-    }
+    std::cout << current_node->next << " <--Should match address above" << std::endl; // for last node
 
 }
 
-void double_jumpers(struct node * start, int number_of_nodes) {
+// returns false if node doesn't point to self
+bool node_in_linked_list_points_to_self(node * start, int list_length, int node_number) {
 
-    struct node *linked_list = start;
+    if (node_number>=list_length) return false;
 
-    for (int i=0; i < number_of_nodes; i++) {
-        if (linked_list->jumper==linked_list) break; // pointing to self
-        cout << linked_list->data << endl;
-        linked_lits = linked_list->next;
+    node *current_node = start;
+
+    for (int i=0; i<node_number; i++) {
+        current_node = current_node->next;
     }
+    
+    if (current_node->next==current_node) return true;
+    else return false;
+
+}
+
+void print_linked_list_each_next_ptr_using_no_modify(node * start) {
+
+    if (start==nullptr) return;
+
+    node *current_node=start;
+    std::cout << current_node << " <-- Base node address"<< std::endl;
+    while (current_node->dont_modify_next != current_node) {
+        std::cout << current_node->next << std::endl;
+        current_node = current_node->dont_modify_next;
+    }
+    std::cout << current_node->next << std::endl; // for last node
+
+}
+
+node *get_last_node(node *start) {
+
+    node *current_node = start;
+    while (current_node->dont_modify_next!=current_node) {
+        current_node = current_node->dont_modify_next;
+    }
+    return current_node;
+
+}
+
+bool all_nodes_point_to_last(node *start) {
+
+    node *current_node = start;
+
+    node *last_node = get_last_node(start);
+
+    while (current_node->dont_modify_next != last_node) {
+        if (current_node!=last_node) return false;
+        else current_node = current_node->dont_modify_next;
+    }
+    return true; // no nodes that don't point to last found.
 
 }
