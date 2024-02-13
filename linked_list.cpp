@@ -41,7 +41,7 @@ void print_linked_list_each_next_ptr(node * start) {
 // returns false if node doesn't point to self
 bool node_in_linked_list_points_to_self(node * start, int list_length, int node_number) {
 
-    if (node_number>=list_length) return false;
+    if (start==nullptr || node_number>=list_length) return false;
 
     node *current_node = start;
 

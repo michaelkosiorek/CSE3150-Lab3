@@ -4,7 +4,7 @@
 #include "linked_list.h"
 
 void pointer_jumping_algorithm(node *start) {
-    if (start->next == start || start == nullptr) return;
+    if (start == nullptr || start->next == start) return;
     
     node *current_node = start;
 
