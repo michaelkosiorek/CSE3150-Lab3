@@ -34,7 +34,7 @@ void print_linked_list_each_next_ptr(node * start) {
         std::cout << current_node->next << std::endl;
         current_node = current_node->next;
     }
-    std::cout << current_node->next << " <--Should match address above" << std::endl; // for last node
+    std::cout << current_node->next << " <-- Should match address above" << std::endl; // for last node
 
 }
 
@@ -46,7 +46,7 @@ bool node_in_linked_list_points_to_self(node * start, int list_length, int node_
     node *current_node = start;
 
     for (int i=0; i<node_number; i++) {
-        current_node = current_node->next;
+        current_node = current_node->dont_modify_next;
     }
     
     if (current_node->next==current_node) return true;
@@ -61,7 +61,7 @@ void print_linked_list_each_next_ptr_using_no_modify(node * start) {
     node *current_node=start;
     std::cout << current_node << " <-- Base node address"<< std::endl;
     while (current_node->dont_modify_next != current_node) {
-        std::cout << current_node->next << std::endl;
+        std::cout << current_node->next << " <-- Next ptr of node w/ addr: " << current_node << std::endl;
         current_node = current_node->dont_modify_next;
     }
     std::cout << current_node->next << std::endl; // for last node

@@ -14,7 +14,7 @@ void pointer_jumping_algorithm(node *start) {
         current_node = current_node->next;
     }
     last_node = current_node;
-    //std::cout << last_node << " <-- last node" << std::endl;
+    // std::cout << last_node << " <-- last node" << std::endl;
 
     current_node = start;
     node *next_node;

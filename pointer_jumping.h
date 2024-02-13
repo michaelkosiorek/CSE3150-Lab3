@@ -5,8 +5,8 @@
 #include <cstdlib>
 
 
-struct node { 
-	struct node * next;
+struct node {
+    struct node * next;
     struct node * dont_modify_next;
 };
 

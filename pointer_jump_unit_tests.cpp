@@ -20,6 +20,17 @@ TEST_CASE("pointer jumping unit tests") {
 
     SUBCASE("pointer jumping algo") {
 
+        int linked_list_length=10;
+        node *linked_list = build_new_linked_list(linked_list_length);
+
+        for (int i=0; i < linked_list_length-1; i++) {
+            CHECK_FALSE(node_in_linked_list_points_to_self(linked_list, linked_list_length, i));
+        }
+        CHECK(node_in_linked_list_points_to_self(linked_list, linked_list_length, linked_list_length-1));
+
+        pointer_jumping_algorithm(linked_list);
+        node *last_node = get_last_node(linked_list);
+
         
 
     }
