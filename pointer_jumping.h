@@ -7,7 +7,7 @@
 
 struct node {
     struct node * next;
-    struct node * dont_modify_next;
+    struct node * dont_modify_next; // STRICLY USED FOR TESTING, NOT FUNCTIONALITY!!!
 };
 
 void pointer_jumping_algorithm(node *start);
